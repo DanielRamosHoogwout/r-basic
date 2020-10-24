@@ -1,0 +1,102 @@
+---
+title: "Ejercicios sobre LaTeX, R y Markdown"
+author: "Daniel Ramos"
+date: "24/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Preguntas
+
+### Pregunta 1
+
+Realizad los siguientes productos de matrices siguiente en `R`:
+
+$A \cdot B$
+
+$B \cdot A$
+
+$(A \cdot B)^t$
+
+$B^t \cdot A$
+
+$(A \cdot B)^{-1}$
+
+$A^{-1} \cdot B^t$
+
+donde
+
+$A=\begin{pmatrix}
+1 & 2 & 3 & 4\\
+4 & 3 & 2 & 1\\
+0 & 1 & 0 & 2\\
+3 & 0 & 4 & 0
+\end{pmatrix}$
+$B=\begin{pmatrix}
+4 & 3 & 2 & 1\\
+0 & 3 & 0 & 4\\
+1 & 2 & 3 & 4\\
+0 & 1 & 0 & 2
+\end{pmatrix}$
+
+Finalmente, escribe haciendo uso de $\LaTeX$ el resultado de los dos primeros productos de forma adecuada.
+
+```{r}
+A = rbind(c(1,2,3,4),c(4,3,2,1),c(0,1,0,2),c(3,0,4,0))
+B = rbind(c(4,3,2,1),c(0,3,0,4),c(1,2,3,4),c(0,1,0,2))
+
+C=A*B
+```
+$C=\begin{pmatrix}
+4 & 6 & 6 & 4\\
+0 & 9 & 0 & 4\\
+1 & 2 & 0 & 8\\
+0 & 0 & 0 & 0
+\end{pmatrix}$
+
+## Pregunta 2
+Considerad en un vector los números de vuestro DNI y llamadlo dni. Por ejemplo, si vuestro DNI es 54201567K, vuestro vector será
+
+$$\textit{dni} = (5,4,2,0,1,5,6,7)$$
+
+Definid el vector en `R`. Calculad con R el vector dni al cuadrado, la raíz cuadrada del vector dni y, por último,
+la suma de todas las cifras del vector dni.
+Finalmente, escribid todos estos vectores también a $\LaTeX$
+
+```{r}
+dni = c(5,4,2,0,1,5,6,7)
+
+dni^2
+sqrt(dni)
+sum(dni)
+```
+$\textit{dni}^2 = (5,4,2,0,1,5,6,7)$
+
+$\sqrt{\textit{dni}} = (2.23,2,1.41,0,1,2.24,2.45,2.65)$
+
+$\textit{suma} = 30$
+
+## Pregunta 3
+
+Considerad el vector de las letras de vuestro nombre y apellido. Llamadlo `name`. Por ejemplo, en mi caso sería
+
+$$\textit{nombre} = (D,A,N,I,E,L,R,A,M,O,S)
+
+Definid dicho vector en `R`. Calculad el subvector que solo contenga vuestro nombre. Calculad también el
+subvector que contenga solo vuestro apellido. Ordenadlo alfabéticamente. Cread una matriz con este vector.
+Redactad todos vuestros resultados y utilizad $\LaTeX$ cuando pertoque
+
+```{r}
+
+nombre = c('D','A','N','I','E','L','R','A','M','O','S')
+primer_nombre = nombre[1:6]
+print(primer_nombre)
+apellido = nombre[7:length(nombre)]
+print(apellido)
+sort(apellido)
+matrix(sort(apellido))
+```
+

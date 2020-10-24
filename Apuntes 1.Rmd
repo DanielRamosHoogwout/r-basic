@@ -1,0 +1,94 @@
+---
+title: "Apuntes 1"
+author: "Daniel Ramos"
+date: "23/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#Configuración básica del fichero deberia venir aquí
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Vectores
+
+Todos los objetos que contiene el vector deben ser del mismo tipo (en R)
+
+* lógicos (`logical`) `TRUE`o `FALSE`
+* numérico: `integer`, `numeric`, `complex`,...
+* string: `character`
+
+Repite un valor n veces:
+
+rep(pi, 3)
+
+seq(5, 29, by=6)
+
+seq(5, 29, length.out = 6)
+
+seq(5, by=6, length.out = 6)
+
+sqrt(x) se aplica a todos los componentes de un vector
+
+sapply(v, FUN = cuadrado) para aplicar formulas a todo un vector
+
+```{r}
+v_abs <- function(x){
+  if (x>0){
+    x
+  } else{
+    -x
+  }
+}
+```
+sort(v) me dara la lista ordenada
+
+rev(v)
+
+rev(sort(v))
+
+v[-4] excluye la posicion del vector original
+
+v[-(3:5)]
+
+v==2 Vector con booleanos, cierto donde se cumple
+
+v[v==2] nos da los elementos que cumplen la condicion
+
+v[v > 2 & v%%2==0] Nos da mayores que dos y pares
+
+which(x > 2) Nos da las posiciones, los indices que safisfacen la condicion
+
+which.min(v) Nos da la primera posicion en la que el vector tiene el valor más pequeño
+
+which(v == (min(v))
+
+En R vamos a usar sapply, no vamos a usar bucles
+
+# Factores
+
+factor(c("España, "Francia", "Francia", "España", "Alemania"))
+
+Tiene niveles: Alemania, España, Francia
+
+levels(factor)
+
+Datos ordenados:
+
+notas = ordered(c(1,1,1,1,2,2,2,3,3,3,4,4,4,4,3,2,1), levels= 1:4, labels =c("Suspendido", "Aprobado", "Notable", "Excelente")
+
+# Listas
+
+Contienen conjuntos de datos que puedes ser heterogeneos
+
+mi_lista = list(nombre= "X", notas = notas, vector = v, media = mean(v))
+
+mi_lista$vector
+
+str(mi_lista) Muestra la estructura de la lista
+
+names(mi_lista) Muestra las etiquetas de la lista
+
+# Matrices
+
+matrix(1:12)
