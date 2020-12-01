@@ -1,0 +1,104 @@
+---
+title: "Tarea 10 R"
+author: "Daniel Ramos"
+date: "2/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 1
+
+Utiliza str() y head() para explorar la estructura, y con help(), mirar el significado de cada variable.
+
+```{r}
+library(MASS)
+str(birthwt)
+head(birthwt)
+help(birthwt)
+```
+
+## Ejercicio 2
+
+Calcula una tabla de frecuencias relativas marginales de los pares (raza de la madre, peso inferior a 2.5 kg o no) que permita ver si la raza de la madre influye en el peso del bebé.
+
+```{r}
+table2 = table(birthwt$race, birthwt$low) #Tabla con raza y peso inferior
+colnames(table2) = c("Underweight", "Normal") #Cambio nombre columnas
+rownames(table2) = c("White","Black", "Other") #Cambio nombre filas
+prop.table(table2) #Tabla frec relativas
+#Las madres de raza blanca tiene más posibilidades de tener un parto con infrapeso
+```
+## Ejercicio 3
+
+Dibuja un diagrama de mosaico de la tabla del ejercicio anterior.
+
+```{r}
+plot(table2)
+```
+
+## Ejercicio 4
+
+Dibuja un diagrama bidimensional de barras, con las barras organizadas en bloques, que permita visualizar la información de los ejercicios anteriores. Aprovecha para nombres adecuados a los bloques, colores a las barras, y añadir una leyenda que explique qué representa cada barra.
+
+```{r}
+barplot(table2, main= "Frecuencias absolutas", horiz= TRUE, legend.text=TRUE, col = c("white","black","brown"))
+
+barplot(prop.table(table2), main= "Frecuencias relativas", horiz= TRUE, legend.text=TRUE, col = c("white","black","brown"))
+```
+
+## Ejercicio 5
+
+¿Se puede obtener alguna conclusión de la tabla y el diagrama de barras anterior? Argumenta tu respuesta.
+
+Las mujeres blancas son las que más posibilidades tienen de tener un parto con infrapeso, seguido de otra raza y la raza negra es la que tiene menos posibilidades de tener un parto con infrapeso
+
+## Ejercicio 6
+
+Repite los cuatro ejercicios anteriores para los pares (madre fumadora o no, peso inferior a 2.5 kg o no) y para los pares (madre hipertensa o no, peso inferior a 2.5 kg o no.
+
+```{r}
+table3 = table(birthwt$smoke, birthwt$low) #Tabla con fumadora y peso inferior
+colnames(table3) = c("Underweight", "Normal") #Cambio nombre columnas
+rownames(table3) = c("No fuma", "Fuma") #Cambio nombre filas
+prop.table(table3) #Tabla frec relativas
+
+barplot(table3, main= "Frecuencias absolutas", horiz= TRUE, legend.text=TRUE, col = c("blue", "red"))
+
+barplot(prop.table(table3), main= "Frecuencias relativas", horiz= TRUE, legend.text=TRUE, col = c("blue", "red"))
+
+table4 = table(birthwt$ht, birthwt$low) #Tabla con hipertensa y peso inferior
+colnames(table4) = c("Underweight", "Normal") #Cambio nombre columnas
+rownames(table4) = c("No HT", "HT") #Cambio nombre filas
+prop.table(table4) #Tabla frec relativas
+
+barplot(table3, main= "Frecuencias absolutas", horiz= TRUE, legend.text=TRUE, col = c("yellow", "purple"))
+
+barplot(prop.table(table3), main= "Frecuencias relativas", horiz= TRUE, legend.text=TRUE, col = c("yellow", "purple"))
+
+```
+
+## Ejercicio 7
+
+Calcula una tabla de frecuencias relativas marginales de las ternas (raza de la madre, madre fumadora o no, peso inferior a 2.5 kg o no) que permita ver si la raza de la madre y su condición de fumadora o no fumadora influyen en el peso del bebé.
+
+```{r}
+data5 = data.frame(birthwt$race, birthwt$smoke, birthwt$low)
+data5$birthwt.smoke = factor(data5$birthwt.smoke, levels=c(0,1),labels=c("No fuma","Fuma"))
+data5$birthwt.race = factor(data5$birthwt.race, levels=c(1,2,3),labels=c("White","Black","Other"))
+data5$birthwt.low = factor(data5$birthwt.low, levels=c(0,1),labels=c("Underweight","Normalweight"))
+
+table5 = ftable(data5) #ftable porque se más claro
+prop.table(table5) #Tabla frec relativas
+```
+## Ejercicio 8
+
+Dibuja un diagrama de mosaico de la tabla del ejercicio anterior.
+
+```{r}
+plot(table(data5)) #Obviamente es muy dificil de sacar algo en claro
+```
+
+

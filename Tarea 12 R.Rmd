@@ -1,0 +1,79 @@
+---
+title: "Tarea 12 R"
+author: "Daniel Ramos"
+date: "3/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Carga el conjunto de datos de la carpeta data llamado grades.txt en R y responde a las siguientes preguntas
+
+## Ejercicio 1
+
+Calcula la media, la mediana y la moda redondeada a dos cifras decimales de las notas numéricas de los exámenes tanto de forma conjunta como por estudio universitario. ¿En qué grupo observamos la nota más alta? ¿Qué grupo está por encima de la media de estudiantes?
+
+```{r}
+#En general
+df = read.table("data/grades.txt")
+round(mean(df$nota),2) #Media: 3.87
+round(median(df$nota),2) #Mediana: 3.5
+as.numeric(names(which(table(df$nota)==max(table(df$nota)))))
+#La nota que en general es más común es un 0
+
+#En especifico
+df$estudio = factor(df$estudio,levels = c("Industrial","Telematica","Mates","Informatica"))
+#Transformo en factores el tipo de estudio
+
+by(df$nota, df$estudio, FUN=mean) #Medias por estudio
+by(df$nota, df$estudio, FUN=median) #Medianas por estudio
+by(df$nota, df$estudio, FUN=max) #Nota máxima por estudio
+
+#Industrial tiene la nota más alta
+#Mates tiene la media más alta
+
+```
+
+## Ejercicio 2
+
+¿En qué grupo observamos más variación de notas? Justifica tu respuesta.
+
+```{r}
+by(df$nota, df$estudio, FUN=var) #Más variacion Mates
+by(df$nota, df$estudio, FUN=sd) #Más sd Mates
+#La varianza no tiene las mismas unidades que los datos, por ello debemos usar la sd, que si esta en las misma unidades
+```
+
+## Ejercicio 3
+
+¿Hay mucha diferencia entre el grupo que has respondido en el ejercicio 1 y en el ejercicio 2? Intenta dar una explicación objetiva del suceso.
+
+Mates tiene la media más alta y la variacion más alta asi que puede ser que tenga la media más alta porque hay mucha gente que saca notas muy buenas, pero también hay muchos que sacan notas muy malas.
+
+## Ejercicio 4
+
+Dibuja en un único gráfico los cuatro diagramas de caja, uno para cada grupo. Añade así mismo la nota media, pon nombre, título y color al gráfico para documentar el gráfico correctamente.
+
+```{r}
+boxplot(nota ~ estudio, data = df, main = "Notas escuela politecnica", col ="cyan")
+```
+
+## Ejercicio 5
+
+¿Observas algunos valores atípicos en el boxplot anterior? ¿A qué grupo pertence?
+
+Tenemos la nota máxima que es de Industrial, seguido los outliers de Telematica e Informatica
+
+## Ejercicio 6
+
+Indica a partir del boxplot anterior en qué grupo observamos más variedad de notas.
+
+Mates, ya que su rango intercuartilico es mucho mayor
+
+## Ejercicio 7
+
+En base a todo lo anterior, ¿puedes afirmar de forma estadística que el examen de carrera ha ido mejor en algún estudio que en los demás?
+
+Mates tiene mejor media y mediana que el resto de carreras a si que a ido "mejor"

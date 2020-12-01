@@ -1,0 +1,100 @@
+---
+title: "Clase06Nov R"
+author: "Daniel Ramos"
+date: "6/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Clase 6 de Noviembre 2020
+
+Factor ordenado:
+
+```{r}
+notas = ordered(c("S","A","N","Ex","N","S"), levels = c("S","A","N","Ex"))
+notas
+table(notas)
+cumsum(table(notas))
+cumsum(prop.table(table(notas)))
+```
+
+Siguiente ejemplo:
+
+```{r}
+longitud = sample(c("Pequeños","Medianos","Grandes","Muy grandes","Gigantes"), size=100, replace = T)
+longitud
+longitud = ordered(longitud, levels = c("Pequeños", "Medianos", "Grandes", "Muy grandes", "Gigantes"))
+longitud
+fr.abs = table(longitud)
+fr.abs
+fr.rel = prop.table(fr.abs)
+fr.rel
+fr.abs.acum = cumsum(fr.abs)
+fr.abs.acum
+fr.rel.acum = cumsum(fr.rel)
+fr.rel.acum
+barplot(fr.rel.acum)
+colores = rep(c("Rojo", "Verde", "Azul", "Amarillo"), c(30,25,35,10))
+colores
+colores = factor(colores)
+colores
+
+coches = data.frame(colores, longitud)
+head(coches)
+tail(coches)
+
+apply(table(coches), MARGIN=1, FUN = cumsum)
+t(apply(table(coches), MARGIN=1, FUN = cumsum))
+
+apply(prop.table(table(coches), margin = 1), MARGIN=1, FUN = cumsum) -> diagrama
+
+
+barplot(diagrama, beside = T, legend= T, args.legend = list(x= "topleft", cex = 0.5), main = "Titulo", col = c("cyan", "cyan1","cyan2","cyan3","cyan4"))
+
+
+
+```
+
+Otro ejemplo:
+
+```{r}
+rnorm(100, mean=0, sd=1) -> x
+cut(x, breaks = c(-Inf,-2,-1,0,1,2,Inf), right= F)
+
+```
+
+```{r}
+edad = c(17,18,25,40,53,32,29,45,24,23,25,22,22,23,60)
+table(edad)
+prop.table(table(edad))
+round(prop.table(table(edad)), 3)
+cumsum(y)
+cumsum(table(edad))
+round(cumsum(prop.table(table(edad))),3)
+
+set.seed(20201106)
+sample(1:6, 25, replace=TRUE) -> dados
+set.seed(NULL)
+
+table(dados)
+prop.table(table(dados))
+cumsum(table(dados))
+cumsum(prop.table(table(dados)))
+mean(dados)
+mean(edad)
+median(edad)
+sort(edad)
+sort(dados)
+median(dados)
+table(edad)
+names(which(table(edad) == max(table(edad))))
+
+dados = sort(dados)
+dados
+
+quantile(dados, 0.25)
+```
+

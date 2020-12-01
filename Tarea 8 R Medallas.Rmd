@@ -1,0 +1,75 @@
+---
+title: "Tarea 8 R Medallas"
+author: "Daniel Ramos"
+date: "31/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+medallas = read.csv("medals.csv")
+```
+
+
+## Ejercicio 1
+
+¿Cuantos deportistas aparecen en el data frame?
+
+
+```{r}
+View(medallas)
+nrow(medallas) 
+#Hay 2311 filas, pero no significa que haya 2311 porque las medallas no solo son individuales, aparte un mismo atleta puede ganar medallas durante distintos años
+```
+## Ejercicio 2
+
+¿Cuantos han ganado medallas de oro, cuantos de plata y cuantos de bronce?
+
+```{r}
+table(medallas$Medal)
+#El número de medallas Bronce: 764 Plata: 773 y Oro:774
+```
+
+## Ejercicio 3
+
+¿En cuantos lugares se han hecho olimpiadas de invierno?
+
+```{r}
+length(table(medallas$City))
+#Se ha hecho en 17 ciudades distintas  
+
+```
+
+## Ejercicio 4
+
+¿Cuantos hombres y cuantas mujeres hay?
+
+```{r}
+table(medallas$Event.gender)
+#1386 Hombres, 802 Mujeres y 123 Equipos Mixtos
+```
+
+## Ejercicio 5
+
+¿En qué año participaron más deportistas?
+
+```{r}
+
+which(table(medallas$Year) == max(table(medallas$Year)))
+#2006
+```
+
+## Ejercicio 6
+
+El campo NOC indica el país del ganador de la medalla. ¿Qué país puede presumir de haber ganado más medallas de oro en los juegos de invierno entre 1960 y 1996?
+
+```{r}
+oro = medallas[medallas$Medal == "Gold", ]
+View(oro)
+which(table(oro$NOC) == max(table(oro$NOC)))
+#Noruega ha ganado más juegos de invierno
+```
+

@@ -1,0 +1,96 @@
+---
+title: "Clase 30/10"
+author: "Daniel Ramos"
+date: "30/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Dataframes
+
+edad = c(1,2,3,4,5,6,7,8)
+altura = c(75,80,85,90,95,100,105,110)
+datos = data.frame(edad, altura)
+datos
+datos$edad
+datos$altura
+plot(edad, altura)
+plot(edad, altura, xlab="Edad del niño", ylab="Altura en cm", main="Altura en funcion edad")
+exps = exp(1:10)
+exps
+plot(exps, type = "p") #Grafico de puntos
+plot(exps, type = "l") #Linea
+plot(exps, type = "b") #Circulo raya
+plot(exps, type = "o")
+plot(exps, type = "h")
+plot(exps, type = "s")
+plot(exps, type = "n") #No pinta nada
+plot(exps, pch = 0) #Desde 0 hasta 25 formas
+plot(exps, cex= 3) #Grafico más grande
+plot(exps, lty = 1) # 1,2,3,4 tipos
+plot(exps, lwd = 3) #Grosor lineas
+plot(exps, lwd = 3, xlim = c(-10,20)) #Cambiar los limites
+points(5,5000, col = "red", cex = 5, pch = 16)
+abline(100,3000) #x pendiente de la recta b donde corta en el origen
+text(5,10000, labels="Hola")
+lines(c(0,10,10,-10),c(0,5000,20000,5000), lwd=3, col = "blue")
+curve(2*exp(x), add=TRUE, col = "green")
+legend("topleft", col = c("blue","green","purple"), legend= c("Funcion 1","Funcion2","Funcion3"), bty="l", lwd=3)
+
+lm(altura ~ edad, data = datos) -> modelo #Regresion lineal
+plot(edad, altura)
+abline(modelo)
+summary(modelo)
+
+data() #para ver los datasets
+
+Orange
+head(Orange, 5) #5 primeras obs
+tail(Orange, 5) #Muestra las ultimas obs
+str(Orange) #Estructura de dataframe
+Buscar que es cada variable
+names(Orange) #Nombres de las columnas
+colnames(Orange) #Lo mismo que antes
+rownames() existe pero casi ni se usa
+
+Orange$Tree
+
+Orange[4:7, 1:2]
+Orange[c(7,15), ]
+Orange[Orange$circumference < 50, ]
+
+getwd()
+write.table(datos, file= "mis_datos.csv", sep = ",", dec = ".")
+read.table("mis_datos.csv", header = TRUE, sep = ",")
+
+cbind(datos, count = 1:8) -> datos #Para añadir una columna y sobreescribir datos
+
+datos$new_var = sample(1:20, size = 8)
+datos
+
+sample(1:20, size = 5, replace = TRUE) #Valores aleatorios con reposicion
+sample(c("H","M"), size=8, replace=TRUE, prob=c(0.2, 0.9))
+sample(as.factor(c("H","M")), size=8, replace=TRUE, prob=c(0.2, 0.8))
+
+datos$genero = sample(as.factor(c("H","M")), size=8, replace=TRUE, prob=c(0.2, 0.8))
+
+as.character() #Castear a chr
+
+aggregate(circumference ~ Tree, data = Orange, FUN = mean)
+
+table() #Una tabla de contigencia
+which(table(x) == max(table(x)) #Para obtener la cabecerainst
+prop.table(table(x)) #Tabla de frecuencias
+
+table(x)/length(x) #Lo mismo que arriba
+
+table(ans, x) #Tabla bidimensional
+table(ans, x)[1, 5]
+prop.table(table(ans, x))
+
+library(gmodels) #Hay que bajarsela
+CrossTable(x, ans, falta un argumento)
+
