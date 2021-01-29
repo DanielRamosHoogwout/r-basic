@@ -1,0 +1,80 @@
+---
+title: "Tarea 9 R"
+author: "Daniel Ramos"
+date: "10/1/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+## Ejercicio 1
+Indica cuantos estudiantes formaron parte del estudio de deporte
+```{r}
+
+df = read.csv("data/run.csv", header = TRUE)
+dim(df)
+#92 Estudiantes
+
+```
+
+## Ejercicio 2
+Indica cuantos individuos son hombres y cuantos son mujeres
+```{r}
+dim(df[df$genero == "H",]) #57 Hombres
+dim(df[df$genero == "M",]) #35 Mujeres
+```
+
+## Ejercicio 3
+Calcula el porcentaje medio de variación del pulso por minuto entre antes y después de hacer ejercicio y compara el valor de los que hacen ejercicio habitualmente y los que no. ¿Observas mucha diferencia?
+```{r}
+hace_deporte <- df[df$hace.deporte == "si",]
+no_deporte <-  df[df$hace.deporte == "no",]
+
+mean(hace_deporte$pulso.despues)-mean(hace_deporte$pulso.antes)
+
+mean(no_deporte$pulso.despues)-mean(no_deporte$pulso.antes)
+
+#Los que hacen deporte tienen pulsaciones más altas después de hacerlo
+```
+
+## Ejercicio 4
+Calcula el porcentaje medio de variación del pulso por minuto entre antes y después de hacer ejercicio  para los estudiantes que hacen ejercicio habitualmente y compara el valor de los hombres con el de las mujeres. ¿Observas mucha diferencia?
+```{r}
+hombres <- hace_deporte[hace_deporte$genero == "H",]
+mujeres <- hace_deporte[hace_deporte$genero == "M",]
+
+mean(hombres$pulso.despues)-mean(hombres$pulso.antes)
+mean(mujeres$pulso.despues)-mean(mujeres$pulso.antes)
+#Hay bastante diferencia
+```
+
+## Ejercicio 5
+Calcula el porcentaje medio de variación del pulso por minuto entre antes y después de hacer ejercicio para los estudiantes que no hacen ejercicio habitualmente y compara el valor de los fumadores con los no fumadores. ¿Observas mucha diferencia?
+```{r}
+fuma <- no_deporte[no_deporte$fuma == "si",]
+no_fuma <- no_deporte[no_deporte$fuma == "no",]
+mean(fuma$pulso.despues)-mean(fuma$pulso.antes)
+mean(no_fuma$pulso.despues)-mean(no_fuma$pulso.antes)
+#No hay mucha variación
+```
+
+## Ejercicio 6
+Calcula el porcentaje medio de variación del pulso por minuto entre antes y después de hacer ejercicio de todos los estudiantes según el tipo de actividad física que realizan. ¿Observas alguna diferencia?
+```{r}
+nula <- df[df$tipo.actividad == "nula",]
+suave <- df[df$tipo.actividad == "suave",]
+moderada <- df[df$tipo.actividad == "moderada",]
+intensa <- df[df$tipo.actividad == "intensa",]
+mean(nula$pulso.despues)-mean(nula$pulso.antes)
+mean(suave$pulso.despues)-mean(suave$pulso.antes)
+mean(moderada$pulso.despues)-mean(moderada$pulso.antes)
+mean(intensa$pulso.despues)-mean(intensa$pulso.antes)
+#Hay bastante diferencia entre los distintos grupos
+
+```
+
+
